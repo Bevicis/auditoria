@@ -125,16 +125,11 @@ def auditar():
     pdf.output(pdf_name)
 
     asunto = f"Informe de Auditoría Legal Web – {empresa}"
-    cuerpo = (
-        f"Hola Alejandro,
-
-"
-        f"Adjunto encontrarás el informe de auditoría legal para {empresa} realizado el {fecha}.
-
-"
-        f"Saludos,
-Sistema automático de auditorías – BEVICIS"
-    )
+cuerpo = (
+    f"Hola Alejandro,\n\n"
+    f"Adjunto encontrarás el informe de auditoría legal para {empresa} realizado el {fecha}.\n\n"
+    f"Saludos,\nSistema automático de auditorías – BEVICIS"
+)
     enviar_email(asunto, cuerpo, [word_name, pdf_name])
 
     return jsonify({"status": "ok", "mensaje": "Informe auditado y enviado por correo."})
