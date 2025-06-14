@@ -124,7 +124,7 @@ def auditar():
     pdf.cell(200, 10, "Este informe ha sido generado por BEVICIS.", ln=True)
     pdf.output(pdf_name)
 
-        asunto = f"Informe de Auditoría Legal Web – {empresa}"
+    asunto = f"Informe de Auditoría Legal Web – {empresa}"
     cuerpo = (
         f"Hola Alejandro,\n\n"
         f"Adjunto encontrarás el informe de auditoría legal para {empresa} realizado el {fecha}.\n\n"
