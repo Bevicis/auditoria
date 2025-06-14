@@ -1,9 +1,10 @@
 
 from flask import Flask, request, jsonify
+from datetime import date
+import os
+from drive_uploader import upload_to_drive
 from docx import Document
 from fpdf import FPDF
-import os
-import datetime
 
 app = Flask(__name__)
 
@@ -18,9 +19,11 @@ def auditar():
     url = data.get("url", "https://example.com")
     tipo = data.get("tipo", "informativa")
     email = data.get("email", "email@cliente.com")
-    fecha = datetime.date.today().isoformat()
+    fecha = date.today().isoformat()
 
-    # Crear Word
+    word_name = f"Informe_{empresa}_{fecha}.docx".replace(" ", "_")
+    pdf_name = f"Informe_{empresa}_{fecha}.pdf".replace(" ", "_")
+
     doc = Document()
     doc.add_heading('Informe de Auditoría Legal Web', 0)
     doc.add_paragraph(f'Empresa: {empresa}')
@@ -29,11 +32,8 @@ def auditar():
     doc.add_paragraph(f'Email de contacto: {email}')
     doc.add_paragraph(f'Fecha de auditoría: {fecha}')
     doc.add_paragraph('Cumplimiento RGPD + LSSI: TODO')
-
-    word_name = f"Informe_{empresa}_{fecha}.docx".replace(" ", "_")
     doc.save(word_name)
 
-    # Crear PDF
     pdf = FPDF()
     pdf.add_page()
     pdf.set_font("Arial", size=12)
@@ -44,18 +44,18 @@ def auditar():
     pdf.cell(200, 10, txt=f"Tipo: {tipo}", ln=True)
     pdf.cell(200, 10, txt=f"Email: {email}", ln=True)
     pdf.cell(200, 10, txt=f"Fecha: {fecha}", ln=True)
-
-    pdf_name = f"Informe_{empresa}_{fecha}.pdf".replace(" ", "_")
     pdf.output(pdf_name)
+
+    word_url = upload_to_drive(word_name)
+    pdf_url = upload_to_drive(pdf_name)
 
     return jsonify({
         "status": "ok",
         "empresa": empresa,
-        "word_file": word_name,
-        "pdf_file": pdf_name
+        "word_url": word_url,
+        "pdf_url": pdf_url
     })
 
 if __name__ == "__main__":
-    import os
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
