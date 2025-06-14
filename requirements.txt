@@ -1,0 +1,5 @@
+flask
+fpdf
+python-docx
+requests
+beautifulsoup4
