@@ -10,7 +10,7 @@ from email.mime.text import MIMEText
 
 app = Flask(__name__)
 
-RECEIVER_EMAIL = "utrera.alejandro@gmail.com"
+RECEIVER_EMAIL = os.environ.get("RECEIVER_EMAIL", "a.utrera@bevicis.com")
 SENDER_EMAIL = "utrera.alejandro@gmail.com"
 APP_PASSWORD = os.environ.get("GMAIL_APP_PASSWORD")
 
