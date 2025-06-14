@@ -68,15 +68,10 @@ def auditar():
 
     asunto = f"Informe de Auditoría Legal Web – {empresa}"
     cuerpo = (
-        f"Hola Alejandro,
-
-"
-        f"Adjunto encontrarás el informe de auditoría legal para {empresa} realizado el {fecha}.
-
-"
-        f"Saludos,
-Sistema automático de auditorías."
-    )
+    f"Hola Alejandro,\n\n"
+    f"Adjunto encontrarás el informe de auditoría legal para {empresa} realizado el {fecha}.\n\n"
+    f"Saludos,\nSistema automático de auditorías."
+)
 
     enviar_email(asunto, cuerpo, [word_name, pdf_name])
 
