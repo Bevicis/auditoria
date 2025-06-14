@@ -91,8 +91,7 @@ def auditar():
         if item[1] == "No":
             doc.add_paragraph(f"🔴 Revisar el punto: {item[0]}", style="List Bullet")
 
-    doc.add_paragraph("
-Este informe ha sido generado por BEVICIS.")
+    doc.add_paragraph("Este informe ha sido generado por BEVICIS.")
     doc.save(word_name)
 
     pdf = FPDF()
